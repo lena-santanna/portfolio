@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Léna Sant'Anna</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #F6F2EA;
+  --text: #1A1A18;
+  --text-muted: #6B6860;
+  --border: rgba(26,26,24,0.14);
+  --border-strong: rgba(26,26,24,0.3);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ─── HEADER ─── */
+header {
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-name {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+nav a {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+nav a:hover { color: var(--text); }
+nav a.active { color: var(--text); }
+
+.nav-sep {
+  width: 1px;
+  height: 12px;
+  background: var(--border-strong);
+}
+
+.lang-toggle { font-size: 11px; }
+
+/* ─── PAGE VISIBILITY ─── */
+.page { display: none; }
+.page.active { display: block; max-width: 1200px; margin: 0 auto; }
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  .header-inner { padding: 1rem 1.25rem; }
+  nav { gap: 1rem; }
+  nav a { font-size: 10px; }
+  .about-hero { padding: 2rem 1.25rem 1rem; }
+  .about-name { font-size: 3rem; }
+  .about-portrait-wrap { display: none; }
+  .about-divider { margin: 1.5rem 1.25rem 0; }
+  .about-bio { padding: 0 1.25rem; margin: 2rem auto; }
+  .about-links { padding: 1.5rem 1.25rem; gap: 1.5rem; flex-wrap: wrap; }
+  .resume-layout { grid-template-columns: 1fr; }
+  .resume-left { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem 1.25rem; min-height: unset; }
+  .resume-right { padding: 2rem 1.25rem; }
+  .portfolio-wrap { padding: 2rem 1.25rem 3rem; }
+  .portfolio-year { font-size: 2.5rem; }
+}
+
+/* ─────────────────────────────
+   ABOUT PAGE
+───────────────────────────── */
+.about-hero {
+  padding: 4.5rem 3rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.about-name {
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: normal;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  font-style: italic;
+}
+
+.about-portrait-wrap {
+  flex-shrink: 0;
+}
+
+.about-portrait {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--border);
+}
+
+.portrait-placeholder {
+  width: 200px;
+  height: 200px;
+  background: rgba(26,26,24,0.05);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.about-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 3rem 0;
+}
+
+.about-bio {
+  max-width: 620px;
+  margin: 3rem auto;
+  padding: 0 3rem;
+  text-align: center;
+}
+
+.about-bio p {
+  font-size: 1rem;
+  line-height: 1.85;
+  margin-bottom: 1.6rem;
+  color: var(--text);
+}
+
+.about-bio p:last-child { margin-bottom: 0; }
+
+.about-links {
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+  padding: 2.5rem 3rem;
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.about-links a {
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+
+.about-links a:hover { opacity: 0.4; }
+
+/* ─────────────────────────────
+   RESUME PAGE
+───────────────────────────── */
+.resume-layout {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.resume-left {
+  border-right: 1px solid var(--border);
+  padding: 3rem 2rem 3rem 3rem;
+  min-height: calc(100vh - 65px);
+}
+
+.resume-right {
+  padding: 3rem 3rem 3rem 2.5rem;
+}
+
+.resume-section {
+  margin-bottom: 2.75rem;
+}
+
+.resume-section-title {
+  font-family: system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.resume-left-item {
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+}
+
+.resume-left-item .sublabel {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.6rem;
+  margin-bottom: 0.15rem;
+}
+
+.resume-entry {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.resume-entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.resume-entry-title {
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.01em;
+}
+
+.resume-entry-sub {
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.resume-entry ul {
+  padding-left: 1.1rem;
+  font-family: system-ui, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.resume-entry ul li {
+  margin-bottom: 0.3rem;
+}
+
+/* ─────────────────────────────
+   PORTFOLIO PAGE
+───────────────────────────── */
+.portfolio-wrap {
+  padding: 3rem 3rem 5rem;
+  max-width: 860px;
+}
+
+.portfolio-year-block {
+  margin-bottom: 4.5rem;
+}
+
+.portfolio-year {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: normal;
+  letter-spacing: -0.03em;
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.portfolio-project {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+
+.portfolio-thumb {
+  width: 130px;
+  height: 88px;
+  flex-shrink: 0;
+  background: rgba(26,26,24,0.05);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.portfolio-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.portfolio-thumb:hover img {
+  transform: scale(1.07);
+}
+
+.portfolio-project-title {
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.01em;
+}
+
+.portfolio-project-role {
+  font-family: system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.portfolio-project-desc {
+  font-family: system-ui, sans-serif;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="header-name" onclick="navigate('about')">Léna Sant'Anna</span>
+    <nav>
+      <a id="nav-about" class="active" onclick="navigate('about')">About</a>
+      <a id="nav-resume" onclick="navigate('resume')">Resume</a>
+      <a id="nav-portfolio" onclick="navigate('portfolio')">Portfolio</a>
+      <div class="nav-sep"></div>
+      <a class="lang-toggle active" id="lang-en" onclick="setLang('en')">EN</a>
+      <span style="color:var(--border-strong); font-size:11px; font-family:system-ui">/</span>
+      <a class="lang-toggle" id="lang-fr" onclick="setLang('fr')">FR</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════
+     ABOUT · EN
+══════════════════════════════════ -->
+<div class="page active" id="page-about-en">
+  <div class="about-hero">
+    <h1 class="about-name">Léna<br>Sant'Anna</h1>
+    <div class="about-portrait-wrap">
+      <!-- Replace src with your portrait path, e.g. src="portrait.jpg" -->
+      <div class="portrait-placeholder">Portrait</div>
+    </div>
+  </div>
+  <hr class="about-divider">
+  <div class="about-bio">
+    <p>I am a development executive with a background spanning fiction development, production, sales, and distribution. Rooted in both the analytical and the creative, I work at the intersection of storytelling and industry — reading projects with a sharp editorial eye while tracking the market forces that shape them.</p>
+    <p>My career has taken me through some of France's most dynamic audiovisual companies — from coordinating international digital sales at StudioCanal, to supporting theatrical release strategy at Next Film Distribution, to developing scripted series and feature films at Federation Studios France.</p>
+    <p>Outside the office, I write fiction, make YouTube videos about popular culture and media, and dance. I believe in stories that challenge, move, and endure — and in the people who create the conditions for those stories to exist.</p>
+  </div>
+  <div class="about-links">
+    <a href="mailto:sant.anna.lena@gmail.com">sant.anna.lena@gmail.com</a>
+    <a href="https://www.linkedin.com" target="_blank">LinkedIn ↗</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ABOUT · FR
+══════════════════════════════════ -->
+<div class="page" id="page-about-fr">
+  <div class="about-hero">
+    <h1 class="about-name">Léna<br>Sant'Anna</h1>
+    <div class="about-portrait-wrap">
+      <div class="portrait-placeholder">Portrait</div>
+    </div>
+  </div>
+  <hr class="about-divider">
+  <div class="about-bio">
+    <p>Chargée de développement avec une expérience couvrant le développement fiction, la production, les ventes et la distribution, j'évolue à l'intersection de la narration et de l'industrie — lisant les projets avec un regard éditorial affûté tout en suivant les dynamiques de marché qui les façonnent.</p>
+    <p>Mon parcours m'a amenée au sein de quelques-unes des entreprises audiovisuelles les plus dynamiques de France — de la coordination des ventes internationales digitales chez StudioCanal, à la stratégie de sortie en salles chez Next Film Distribution, jusqu'au développement de séries et de longs métrages chez Federation Studios France.</p>
+    <p>En dehors du bureau, j'écris de la fiction, je réalise des vidéos sur YouTube autour de la culture populaire et des médias, et je danse. Je crois aux récits qui questionnent, émeuvent et perdurent — et aux personnes qui créent les conditions pour que ces récits existent.</p>
+  </div>
+  <div class="about-links">
+    <a href="mailto:sant.anna.lena@gmail.com">sant.anna.lena@gmail.com</a>
+    <a href="https://www.linkedin.com" target="_blank">LinkedIn ↗</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     RESUME · EN
+══════════════════════════════════ -->
+<div class="page" id="page-resume-en">
+  <div class="resume-layout">
+
+    <div class="resume-left">
+
+      <div class="resume-section">
+        <div class="resume-section-title">Contact</div>
+        <div class="resume-left-item">sant.anna.lena@gmail.com</div>
+        <div class="resume-left-item">06 24 77 83 85</div>
+        <div class="resume-left-item">Paris</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Languages</div>
+        <div class="resume-left-item"><span class="sublabel">English</span>C2 — TOEIC 980/990 (April 2026)</div>
+        <div class="resume-left-item"><span class="sublabel">German</span>B1 — Deutsches Sprachdiplom 1</div>
+        <div class="resume-left-item"><span class="sublabel">French</span>Native</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Digital Skills</div>
+        <div class="resume-left-item">Office Suite, Google Workspace</div>
+        <div class="resume-left-item">Adobe Premiere Pro, Photoshop, InDesign</div>
+        <div class="resume-left-item">Canva</div>
+        <div class="resume-left-item">Instagram, TikTok, X/Twitter</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Activities</div>
+        <div class="resume-left-item"><span class="sublabel">Volunteering</span><em>L'Afrique fait son cinéma</em> — Community Manager</div>
+        <div class="resume-left-item"><span class="sublabel">YouTube</span><em>lowercase léna</em> — 1,200 subscribers. Concept, filming, editing and promotion of videos on popular culture and media.</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Interests</div>
+        <div class="resume-left-item"><em>Atelier 1000 visages</em> — Screenplay &amp; pitch</div>
+        <div class="resume-left-item">Sciences Po Writing Centre — Short story published in anthology</div>
+        <div class="resume-left-item"><em>Ghost City Press</em> — Poetry collection</div>
+        <div class="resume-left-item">Dance — Classical ballet, Modern Jazz</div>
+      </div>
+
+    </div>
+
+    <div class="resume-right">
+
+      <div class="resume-section">
+        <div class="resume-section-title">Experience</div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Fiction Development Assistant</div>
+          <div class="resume-entry-sub">Federation Studios France &nbsp;·&nbsp; 2025–2026 &nbsp;·&nbsp; Current</div>
+          <ul>
+            <li>Analyse and evaluate series and feature film projects, with focus on concept, narrative, structure and commercial positioning</li>
+            <li>Coordinate and track projects in development from synopsis to final script, liaising with writers, production and legal teams</li>
+            <li>Active monitoring and prospecting of IPs and literary and audiovisual trends, in France and internationally</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Production Assistant</div>
+          <div class="resume-entry-sub">Les Films du Chat d'Oz &nbsp;·&nbsp; 6 months &nbsp;·&nbsp; 2024</div>
+          <ul>
+            <li>Receive, read and provide notes on member projects</li>
+            <li>Research associative funding (patronage, fundraising, partnerships)</li>
+            <li>Submit films to short film festivals</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Sales &amp; Distribution Coordinator</div>
+          <div class="resume-entry-sub">Next Film Distribution &nbsp;·&nbsp; 4 months &nbsp;·&nbsp; 2024</div>
+          <ul>
+            <li>Coordinate logistics and marketing strategy for theatrical releases</li>
+            <li>Meet international producers and short film buyers</li>
+            <li>Organise participation in the Clermont-Ferrand Short Film Market</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Digital International Sales Assistant</div>
+          <div class="resume-entry-sub">StudioCanal &nbsp;·&nbsp; 6 months &nbsp;·&nbsp; 2023</div>
+          <ul>
+            <li>Coordinate bimonthly meetings between StudioCanal's international sales subsidiaries</li>
+            <li>Prepare meetings and sales pitches for markets</li>
+            <li>Track contract negotiations and draft deal memos</li>
+            <li>Write a bimonthly internal newsletter on global streaming activity</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Education</div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Master's in Audiovisual Production</div>
+          <div class="resume-entry-sub">INA Campus &nbsp;·&nbsp; 2024–2026</div>
+          <ul>
+            <li>Financing, economics and production of audiovisual works — development, production management, public policy, IP law, applied English</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Master's in Communication, Media &amp; Creative Industries</div>
+          <div class="resume-entry-sub">Sciences Po Paris &nbsp;·&nbsp; Bilingual programme &nbsp;·&nbsp; 2020–2023</div>
+          <ul>
+            <li>Media industry mechanisms, digital transformation, corporate strategy and communication</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Bachelor's in Social Sciences</div>
+          <div class="resume-entry-sub">Sciences Po Paris &nbsp;·&nbsp; Bilingual programme &nbsp;·&nbsp; 2016–2020</div>
+          <ul>
+            <li>Transatlantic relations through a multidisciplinary programme in social sciences and arts</li>
+            <li>Two-semester exchange at George Mason University (USA)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     RESUME · FR
+══════════════════════════════════ -->
+<div class="page" id="page-resume-fr">
+  <div class="resume-layout">
+
+    <div class="resume-left">
+
+      <div class="resume-section">
+        <div class="resume-section-title">Contact</div>
+        <div class="resume-left-item">sant.anna.lena@gmail.com</div>
+        <div class="resume-left-item">06 24 77 83 85</div>
+        <div class="resume-left-item">Paris</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Langues</div>
+        <div class="resume-left-item"><span class="sublabel">Anglais</span>C2 — TOEIC 980/990 (Avril 2026)</div>
+        <div class="resume-left-item"><span class="sublabel">Allemand</span>B1 — Deutsches Sprachdiplom 1</div>
+        <div class="resume-left-item"><span class="sublabel">Français</span>Langue maternelle</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Outils Digitaux</div>
+        <div class="resume-left-item">Suite Office, Google Workspace</div>
+        <div class="resume-left-item">Adobe Premiere Pro, Photoshop, InDesign</div>
+        <div class="resume-left-item">Canva</div>
+        <div class="resume-left-item">Instagram, TikTok, X/Twitter</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Activités</div>
+        <div class="resume-left-item"><span class="sublabel">Bénévolat</span><em>L'Afrique fait son cinéma</em> — Community Manager</div>
+        <div class="resume-left-item"><span class="sublabel">YouTube</span><em>lowercase léna</em> — 1 200 abonnés. Conception, tournage, montage et promotion de vidéos autour de la culture populaire et des médias.</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Intérêts</div>
+        <div class="resume-left-item"><em>Atelier 1000 visages</em> — Scénario et pitch</div>
+        <div class="resume-left-item">Centre d'écriture de Sciences Po — Nouvelle publiée dans une anthologie</div>
+        <div class="resume-left-item"><em>Ghost City Press</em> — Recueil de poèmes</div>
+        <div class="resume-left-item">Danse — Classique, Modern' Jazz</div>
+      </div>
+
+    </div>
+
+    <div class="resume-right">
+
+      <div class="resume-section">
+        <div class="resume-section-title">Expérience</div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Assistante de développement fiction</div>
+          <div class="resume-entry-sub">Federation Studios France &nbsp;·&nbsp; 2025–2026 &nbsp;·&nbsp; En poste</div>
+          <ul>
+            <li>Analyser et évaluer des projets de séries et de longs métrages avec une attention particulière portée au concept, à la narration, la structure et au positionnement commercial</li>
+            <li>Coordonner et suivre les projets en développement du synopsis au dialogué en lien avec les auteurs, les équipes de production et les équipes légales</li>
+            <li>Assurer une veille et une prospection actives des IPs et des tendances littéraires et audiovisuelles, en France et à l'international</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Assistante de production</div>
+          <div class="resume-entry-sub">Les Films du Chat d'Oz &nbsp;·&nbsp; 6 mois &nbsp;·&nbsp; 2024</div>
+          <ul>
+            <li>Recevoir, lire et faire des retours sur les projets des adhérents</li>
+            <li>Recherche de financements associatifs (mécénat, levées de fond, partenariats)</li>
+            <li>Soumettre les films aux festivals de courts métrages</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Coordinatrice vente et distribution</div>
+          <div class="resume-entry-sub">Next Film Distribution &nbsp;·&nbsp; 4 mois &nbsp;·&nbsp; 2024</div>
+          <ul>
+            <li>Coordonner la logistique et la stratégie marketing des sorties salles</li>
+            <li>Rencontrer des producteurs et acheteurs internationaux de courts métrages</li>
+            <li>Organiser la participation au Marché du Film Court de Clermont-Ferrand</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Assistante ventes internationales digitales</div>
+          <div class="resume-entry-sub">StudioCanal &nbsp;·&nbsp; 6 mois &nbsp;·&nbsp; 2023</div>
+          <ul>
+            <li>Coordonner les réunions bimensuelles entre les filiales ventes de StudioCanal</li>
+            <li>Préparer les réunions et les pitchs de vente pour les marchés</li>
+            <li>Suivre la négociation des contrats et la rédaction des deals memo</li>
+            <li>Écrire une newsletter interne bimensuelle sur l'activité mondiale du streaming</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Formation</div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Master Production audiovisuelle</div>
+          <div class="resume-entry-sub">INA Campus &nbsp;·&nbsp; 2024–2026</div>
+          <ul>
+            <li>Financement, économie et fabrication des œuvres audiovisuelles — développement, direction de production, politiques publiques, droit de la propriété intellectuelle, anglais appliqué à l'audiovisuel</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Master Communication, médias et industries créatives</div>
+          <div class="resume-entry-sub">Sciences Po Paris &nbsp;·&nbsp; Cursus bilingue &nbsp;·&nbsp; 2020–2023</div>
+          <ul>
+            <li>Mécanismes des industries médiatiques et transformations numériques, stratégies d'entreprises et communication</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-title">Bachelor Sciences sociales</div>
+          <div class="resume-entry-sub">Sciences Po Paris &nbsp;·&nbsp; Cursus bilingue &nbsp;·&nbsp; 2016–2020</div>
+          <ul>
+            <li>Relations transatlantiques à travers un programme pluridisciplinaire en sciences sociales et en arts</li>
+            <li>Échange universitaire de deux semestres à la George Mason University (USA)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PORTFOLIO · EN
+══════════════════════════════════ -->
+<div class="page" id="page-portfolio-en">
+  <div class="portfolio-wrap">
+
+    <div class="portfolio-year-block">
+      <h2 class="portfolio-year">2025</h2>
+      <!-- Add your 2025 projects below. Replace "Image" divs with <img src="yourimage.jpg"> -->
+      <div class="portfolio-project">
+        <div class="portfolio-thumb">Image</div>
+        <div>
+          <div class="portfolio-project-title">Project Title</div>
+          <div class="portfolio-project-role">Role · Company</div>
+          <div class="portfolio-project-desc">Brief description of the project — what it is, your involvement, and any notable outcome. Keep it to 2–3 sentences.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-year-block">
+      <h2 class="portfolio-year">2024</h2>
+      <div class="portfolio-project">
+        <div class="portfolio-thumb">Image</div>
+        <div>
+          <div class="portfolio-project-title">Project Title</div>
+          <div class="portfolio-project-role">Role · Company</div>
+          <div class="portfolio-project-desc">Brief description of the project — what it is, your involvement, and any notable outcome.</div>
+        </div>
+      </div>
+      <div class="portfolio-project">
+        <div class="portfolio-thumb">Image</div>
+        <div>
+          <div class="portfolio-project-title">Project Title</div>
+          <div class="portfolio-project-role">Role · Company</div>
+          <div class="portfolio-project-desc">Brief description of the project — what it is, your involvement, and any notable outcome.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-year-block">
+      <h2 class="portfolio-year">2023</h2>
+      <div class="portfolio-project">
+        <div class="portfolio-thumb">Image</div>
+        <div>
+          <div class="portfolio-project-title">Project Title</div>
+          <div class="portfolio-project-role">Role · Company</div>
+          <div class="portfolio-project-desc">Brief description of the project — what it is, your involvement, and any notable outcome.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PORTFOLIO · FR
+══════════════════════════════════ -->
+<div class="page" id="page-portfolio-fr">
+  <div class="portfolio-wrap">
+
+    <div class="portfolio-year-block">
+      <h2 class="portfolio-year">2025</h2>
+      <div class="portfolio-project">
+        <div class="portfolio-thumb">Image</div>
+        <div>
+          <div class="portfolio-project-title">Titre du projet</div>
+          <div class="portfolio-project-role">Rôle · Structure</div>
+          <div class="portfolio-project-desc">Brève description du projet — de quoi il s'agit, votre implication et tout résultat notable. 2–3 phrases suffisent.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-year-block">
+      <h2 class="portfolio-year">2024</h2>
+      <div class="portfolio-project">
+        <div class="portfolio-thumb">Image</div>
+        <div>
+          <div class="portfolio-project-title">Titre du projet</div>
+          <div class="portfolio-project-role">Rôle · Structure</div>
+          <div class="portfolio-project-desc">Brève description du projet — de quoi il s'agit, votre implication et tout résultat notable.</div>
+        </div>
+      </div>
+      <div class="portfolio-project">
+        <div class="portfolio-thumb">Image</div>
+        <div>
+          <div class="portfolio-project-title">Titre du projet</div>
+          <div class="portfolio-project-role">Rôle · Structure</div>
+          <div class="portfolio-project-desc">Brève description du projet — de quoi il s'agit, votre implication et tout résultat notable.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-year-block">
+      <h2 class="portfolio-year">2023</h2>
+      <div class="portfolio-project">
+        <div class="portfolio-thumb">Image</div>
+        <div>
+          <div class="portfolio-project-title">Titre du projet</div>
+          <div class="portfolio-project-role">Rôle · Structure</div>
+          <div class="portfolio-project-desc">Brève description du projet — de quoi il s'agit, votre implication et tout résultat notable.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ROUTER
+══════════════════════════════════ -->
+<script>
+var currentPage = 'about';
+var currentLang = 'en';
+
+var navLabels = {
+  en: { about: 'About', resume: 'Resume', portfolio: 'Portfolio' },
+  fr: { about: 'À propos', resume: 'CV', portfolio: 'Portfolio' }
+};
+
+function navigate(page) {
+  currentPage = page;
+  updateView();
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  updateView();
+}
+
+function updateView() {
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active');
+  });
+
+  var pageEl = document.getElementById('page-' + currentPage + '-' + currentLang);
+  if (pageEl) pageEl.classList.add('active');
+
+  document.querySelectorAll('nav a[id^="nav-"]').forEach(function(a) {
+    a.classList.remove('active');
+  });
+  var navEl = document.getElementById('nav-' + currentPage);
+  if (navEl) navEl.classList.add('active');
+
+  var labels = navLabels[currentLang];
+  document.getElementById('nav-about').textContent = labels.about;
+  document.getElementById('nav-resume').textContent = labels.resume;
+  document.getElementById('nav-portfolio').textContent = labels.portfolio;
+
+  var enEl = document.getElementById('lang-en');
+  var frEl = document.getElementById('lang-fr');
+  if (currentLang === 'en') {
+    enEl.classList.add('active'); enEl.style.color = 'var(--text)';
+    frEl.classList.remove('active'); frEl.style.color = 'var(--text-muted)';
+  } else {
+    frEl.classList.add('active'); frEl.style.color = 'var(--text)';
+    enEl.classList.remove('active'); enEl.style.color = 'var(--text-muted)';
+  }
+
+  document.documentElement.lang = currentLang;
+  window.scrollTo(0, 0);
+}
+
+updateView();
+</script>
+</body>
+</html>
