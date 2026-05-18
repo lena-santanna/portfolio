@@ -14,7 +14,7 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<!-- ============================================================
+/* ============================================================
   🔤 CUSTOM FONT
   If you have a custom font file in a /fonts folder, declare it here.
   → Change 'coolvetica' to any name you want (it's just a label).
@@ -22,7 +22,7 @@
   → h1 {} below assigns this font to your big name heading.
   To use a Google Font instead, delete this block and paste the
   Google Fonts <link> tag in the <head>, then set font-family below.
-============================================================ -->
+============================================================ */
 @font-face {
   font-family: 'coolvetica';
   src: url('fonts/coolvetica rg.woff2') format('woff2');
@@ -35,7 +35,7 @@ h1 {
   font-family: 'coolvetica', Georgia, serif;
 }
 
-<!-- ============================================================
+/* ============================================================
   🎨 COLOUR PALETTE
   These are the 4 colours used across the whole site.
   Change them here and the entire site updates automatically.
@@ -48,7 +48,7 @@ h1 {
 
   Tip: use a hex colour picker like coolors.co to find values.
   Example: swap #F6F2EA for #FFFFFF for a pure white background.
-============================================================ -->
+============================================================ */
 :root {
   --bg:           #F6F2EA;  /* bone white background */
   --text:         #1A1A18;  /* near-black main text */
@@ -59,13 +59,13 @@ h1 {
 
 html { scroll-behavior: smooth; }
 
-<!-- ============================================================
+/* ============================================================
   🔤 BODY / BASE FONT
   This sets the default font and size for all text on the site.
   → font-family: change 'Georgia' to any font name
   → font-size: change 16px to make all text larger or smaller
   → line-height: 1.7 = comfortable reading spacing (don't go below 1.4)
-============================================================ -->
+============================================================ */
 body {
   background: var(--bg);
   color: var(--text);
@@ -171,7 +171,7 @@ nav a.active { color: var(--text); }
     Set to 0 for normal spacing.
   → font-style: 'italic' or 'normal'
   → font-weight: 'normal' (thin), 'bold', or a number like 300/700
-============================================================ -->
+============================================================ */
 .about-hero {
   padding: 4.5rem 3rem 2rem;
   display: flex;
@@ -196,7 +196,7 @@ nav a.active { color: var(--text); }
   To replace the portrait: put your image in the /img folder,
   then find <img src="img/portrait.jpg"> in the HTML below and
   change portrait.jpg to your filename.
-============================================================ -->
+============================================================ */
 .about-portrait {
   width: 200px;
   height: 200px;
@@ -222,7 +222,7 @@ nav a.active { color: var(--text); }
   → max-width: how wide the text block is (currently 620px)
     Increase for wider paragraphs, decrease for a narrow column.
   → line-height: spacing between lines (1.85 = airy, 1.4 = tighter)
-============================================================ -->
+============================================================ */
 .about-bio {
   max-width: 620px;
   margin: 3rem auto;
@@ -244,7 +244,7 @@ nav a.active { color: var(--text); }
   → letter-spacing: space between letters
   To change the link destinations: find href="mailto:..." and
   href="https://linkedin.com/..." in the HTML below and edit them.
-============================================================ -->
+============================================================ */
 .about-links {
   border-top: 1px solid var(--border);
   margin-top: 3rem;
@@ -284,7 +284,7 @@ nav a.active { color: var(--text); }
   → letter-spacing: 0.14em = wide spaced (editorial look)
   → text-transform: 'uppercase' or 'none'
   → color: currently --text-muted (grey); change for a coloured accent
-============================================================ -->
+============================================================ */
 .resume-section-title {
   font-family: system-ui, sans-serif;
   font-size: 9px;
@@ -300,7 +300,7 @@ nav a.active { color: var(--text); }
   🔤 RESUME — LEFT COLUMN BODY TEXT
   → font-size: size of skills/contact/language text
   → color: currently --text (dark); change to --text-muted for greyer
-============================================================ -->
+============================================================ */
 .resume-left-item {
   font-family: system-ui, sans-serif;
   font-size: 12px;
@@ -323,7 +323,7 @@ nav a.active { color: var(--text); }
   → .resume-entry-title: job title font size and weight
   → .resume-entry-sub: company + date line (smaller, muted)
   → ul li: bullet point text size
-============================================================ -->
+============================================================ */
 .resume-entry { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
 .resume-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .resume-entry-title {
@@ -358,7 +358,7 @@ nav a.active { color: var(--text); }
   → .portfolio-project-desc: description text size and colour
   → .portfolio-thumb: the thumbnail box dimensions (130×88px)
     Change width/height to make thumbnails bigger.
-============================================================ -->
+============================================================ */
 .portfolio-wrap { padding: 3rem 3rem 5rem; max-width: 860px; }
 .portfolio-year-block { margin-bottom: 4.5rem; }
 .portfolio-year {
@@ -490,7 +490,7 @@ nav a.active { color: var(--text); }
     <h1 class="about-name">Léna<br>Sant'Anna</h1>
     <div class="about-portrait-wrap">
       <!-- 🖼️ Same portrait as English — change both if you rename the file -->
-      <img src="img/portrait.jpg" class="about-portrait">
+      <img src="img/portrait.JPG" class="about-portrait">
     </div>
   </div>
   <hr class="about-divider">
@@ -1015,7 +1015,7 @@ nav a.active { color: var(--text); }
       <h2 class="portfolio-year">2018</h2>
       <div class="portfolio-project">
         <a href="#" target="_blank" class="portfolio-thumb">
-          <img src="img/higher ground.png" alt="Higher Ground">
+          <img src="img/higher ground.PNG" alt="Higher Ground">
         </a>
         <div>
           <div class="portfolio-project-title">Higher Ground</div>
