@@ -227,7 +227,8 @@ nav a.active { color: var(--text); }
   max-width: 620px;
   margin: 3rem auto;
   padding: 0 3rem;
-  text-align: center; /* ← change to 'left' for left-aligned bio */
+  text-align: justify;
+  text-align-last: center; /* ← change to 'left' for left-aligned bio */
 }
 .about-bio p {
   font-size: 1rem;
@@ -273,10 +274,23 @@ nav a.active { color: var(--text); }
      Change to '1fr 2fr' for a wider left column, etc.
    You generally don't need to change the layout here.
 ────────────────────────────────────────────────────────── */
-.resume-layout { display: grid; grid-template-columns: 1fr 3fr; }
-.resume-left  { border-right: 1px solid var(--border); padding: 3rem 2rem 3rem 3rem; min-height: calc(100vh - 65px); }
-.resume-right { padding: 3rem 3rem 3rem 2.5rem; }
-.resume-section { margin-bottom: 2.75rem; }
+.resume-layout { 
+  display: grid;
+  grid-template-columns: 1fr 3fr; 
+}
+  
+.resume-left  { 
+  border-right: 1px solid var(--border);
+  padding: 3rem 2rem 3rem 3rem; 
+  min-height: calc(100vh - 65px); 
+}
+  
+.resume-right { 
+  padding: 3rem 3rem 3rem 2.5rem; 
+}
+.resume-section { 
+  margin-bottom: 2.75rem; 
+}
 
 /* ============================================================
   🔤 RESUME — SECTION TITLES (e.g. "CONTACT", "EXPERIENCE")
@@ -1055,20 +1069,35 @@ var navLabels = {
   fr: { about: 'À propos', resume: 'CV', portfolio: 'Portfolio' }    /* ✏️ French nav labels */
 };
 
-function navigate(page) { currentPage = page; updateView(); }
-function setLang(lang)   { currentLang = lang; updateView(); }
+function navigate(page) { 
+  currentPage = page;
+  updateView(); 
+}
+  
+function setLang(lang)   { 
+  currentLang = lang;
+  updateView(); 
+}
 
 function updateView() {
-  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.page').forEach(function(p) { 
+    p.classList.remove('active');
+  });
+  
   var pageEl = document.getElementById('page-' + currentPage + '-' + currentLang);
   if (pageEl) pageEl.classList.add('active');
-  document.querySelectorAll('nav a[id^="nav-"]').forEach(function(a) { a.classList.remove('active'); });
+  
+  document.querySelectorAll('nav a[id^="nav-"]').forEach(function(a) {
+    a.classList.remove('active');
+  });
   var navEl = document.getElementById('nav-' + currentPage);
   if (navEl) navEl.classList.add('active');
+  
   var labels = navLabels[currentLang];
-  document.getElementById('nav-about').textContent     = labels.about;
-  document.getElementById('nav-resume').textContent    = labels.resume;
+  document.getElementById('nav-about').textContent = labels.about;
+  document.getElementById('nav-resume').textContent = labels.resume;
   document.getElementById('nav-portfolio').textContent = labels.portfolio;
+  
   var enEl = document.getElementById('lang-en');
   var frEl = document.getElementById('lang-fr');
   if (currentLang === 'en') {
@@ -1078,9 +1107,11 @@ function updateView() {
     frEl.classList.add('active');    frEl.style.color = 'var(--text)';
     enEl.classList.remove('active'); enEl.style.color = 'var(--text-muted)';
   }
+  
   document.documentElement.lang = currentLang;
   window.scrollTo(0, 0);
 }
+  
 updateView();
 </script>
 </body>
